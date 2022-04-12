@@ -1,0 +1,10 @@
+
+#stores h1, h2, h3, div, p{
+    color: black;
+    display: block;
+    padding-bottom: 10pt;
+    list-style: disc;
+}
+ul, li {
+    padding-left: 1em;
+}
