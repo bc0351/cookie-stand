@@ -1,45 +1,68 @@
 'use strict';
 
-//store min/max customers/hour, avg cookies/customer in object properties
+const openHours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 
-// use random number gnereator to random customers per hour
+const stores = {
+    location: 'seattle',
+    financials: {
+        estimates: {
+            minCust: 23,
+            maxCust: 65,
+            avgSales: 6.3
+        }
+    },
+    location: 'tokyo',
+    financials: {
+        estimates: {
+            minCust: 3,
+            maxCust: 24,
+            avgSales: 1.2
+        }
+    },
+    location: 'dubai',
+    financials: {
+        estimates: {
+            minCust: 11,
+            maxCust: 38,
+            avgSales: 3.7
+        }
+    },
+    location: 'paris',
+    financials: {
+        estimates: {
+            minCust: 20,
+            maxCust: 38,
+            avgSales: 2.3
+        }
+    },
+    location: 'lima',
+    financials: {
+        estimates: {
+            minCust: 2,
+            maxCust: 16,
+            avgSales: 4.6
+        }
+    },
+}
 
-// calculate and store amounts of cookies purchased per hour/location using avg cookies purchased and randome number of customers
+function generateRandomInRange(lower, upper) {
+    let range = upper - lower;
+    return Math.floor(Math.random() * range) + lower;
+};
 
-// stores results/location in seperate arrays -> property of location object
 
-// display values of each array as unordered lists in browser
+const seattle = {
+    minCust: 23,
+    maxCust: 65,
+    avgSales: 6.3,
+    salesData: [],
+    getSales: function (timeArr) {
+        let arr = [];
+        for (let i = 0; i < timeArr.length; i++) {
+            arr.push(`${timeArr[i]}: ${Math.floor(this.avgSales * generateRandomInRange(this.minCust, this.maxCust))} cookies`);
+        }
+        this.salesData = arr;
+    }
+};
 
-/* Expected output:
-
-Seattle
-
-6am: 16 cookies
-7am: 20 cookies
-8am: 35 cookies
-9am: 48 cookies
-10am: 56 cookies
-11am: 77 cookies
-12pm: 93 cookies
-1pm: 144 cookies
-2pm: 119 cookies
-3pm: 84 cookies
-4pm: 61 cookies
-5pm: 23 cookies
-6pm: 42 cookies
-7pm: 57 cookies
-Total: 875 cookies
-
-*/
-
-// display lists on sales.html
-
-// initial data:
-
-/* Location	Min / Cust	Max / Cust	Avg Cookie / Sale
-Seattle	23	65	6.3
-Tokyo	3	24	1.2
-Dubai	11	38	3.7
-Paris	20	38	2.3
-Lima	2	16	4.6 */
-
+seattle.getSales(openHours);
