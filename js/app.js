@@ -52,6 +52,7 @@ function generateRandomInRange(lower, upper) {
 
 
 const seattle = {
+    location: 'Seattle',
     minCust: 23,
     maxCust: 65,
     avgSales: 6.3,
@@ -66,3 +67,25 @@ const seattle = {
 };
 
 seattle.getSales(openHours);
+
+const parentElement = document.getElementById('stores');
+
+const article = document.createElement('article');
+parentElement.appendChild(article);
+
+const h2 = document.createElement('h2');
+h2.textContent = seattle.location;
+article.appendChild(h2);
+
+// const p = document.createElement('p');
+// p.textContent = '',
+// article.appendChild(p);
+
+const ul = document.createElement('ul');
+article.appendChild(ul);
+
+for (let i = 0; i < seattle.salesData.length; i++) {
+  const li = document.createElement('li');
+  li.textContent = seattle.salesData[i];
+  ul.appendChild(li);
+}
