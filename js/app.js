@@ -3,56 +3,49 @@
 const openHours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 
 const stores = {
-    location: 'seattle',
-    financials: {
+    seattle: {
         estimates: {
             minCust: 23,
             maxCust: 65,
             avgSales: 6.3
         }
     },
-    location: 'tokyo',
-    financials: {
+    tokyo: {
         estimates: {
             minCust: 3,
             maxCust: 24,
             avgSales: 1.2
         }
     },
-    location: 'dubai',
-    financials: {
+    dubai: {
         estimates: {
             minCust: 11,
             maxCust: 38,
             avgSales: 3.7
         }
     },
-    location: 'paris',
-    financials: {
+    paris: {
         estimates: {
             minCust: 20,
             maxCust: 38,
             avgSales: 2.3
         }
     },
-    location: 'lima',
-    financials: {
+    lima: {
         estimates: {
             minCust: 2,
             maxCust: 16,
             avgSales: 4.6
         }
-    },
-}
+    }
+};
 
 function generateRandomInRange(lower, upper) {
     let range = upper - lower;
     return Math.floor(Math.random() * range) + lower;
 };
 
-
 const seattle = {
-    location: 'Seattle',
     minCust: 23,
     maxCust: 65,
     avgSales: 6.3,
@@ -66,7 +59,7 @@ const seattle = {
     }
 };
 
-seattle.getSales(openHours);
+seattle.getSales(openHours(6, 19));
 
 const parentElement = document.getElementById('stores');
 
@@ -77,15 +70,15 @@ const h2 = document.createElement('h2');
 h2.textContent = seattle.location;
 article.appendChild(h2);
 
-// const p = document.createElement('p');
-// p.textContent = '',
-// article.appendChild(p);
+const p = document.createElement('p');
+p.textContent = '',
+    article.appendChild(p);
 
 const ul = document.createElement('ul');
 article.appendChild(ul);
 
 for (let i = 0; i < seattle.salesData.length; i++) {
-  const li = document.createElement('li');
-  li.textContent = seattle.salesData[i];
-  ul.appendChild(li);
+    const li = document.createElement('li');
+    li.textContent = seattle.salesData[i];
+    ul.appendChild(li);
 }
