@@ -59,7 +59,7 @@ const seattle = {
     }
 };
 
-seattle.getSales(openHours(6, 19));
+seattle.getSales(openHours);
 
 const parentElement = document.getElementById('stores');
 
