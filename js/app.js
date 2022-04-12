@@ -67,7 +67,7 @@ const article = document.createElement('article');
 parentElement.appendChild(article);
 
 const h2 = document.createElement('h2');
-h2.textContent = seattle.location;
+h2.textContent = 'Seattle'
 article.appendChild(h2);
 
 const p = document.createElement('p');
