@@ -1,10 +1,88 @@
+html, body {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    font-size: 1em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 
-#stores h1, h2, h3, div, p{
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow:1;
+    align-items: stretch;
+    align-content:stretch;
+    margin: 0;
+    z-index: 0;
+}
+
+.flex-navbar {
+    display: flex;
+    flex-flow: row;
+    height: 60px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #4294f2;
+    padding-left: 25px;
+    padding-right: 25px;
+    box-shadow: 1px 1px 5px 5px rgb(97, 97, 97);
+    color: white;
+}
+
+.flex-item {
+    display: flex;
+    flex-flow: wrap;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items:  stretch;
+}
+
+.flex-navbar-item {
+    display: flex;
+    column-gap: 2rem;
+    align-items: center;
+    color: white;
+}
+
+.flex-navbar-item a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    background-color: #4294f2;
+}
+
+.flex-navbar-item a:hover {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    color: #4294f2;
+}
+
+#stores {
     color: black;
-    display: block;
-    padding-bottom: 10pt;
+    display: flex;
+    padding: 2em;
+}
+
+#stores ul {
+    padding-left: 2em;
+    padding-bottom: 2em;
+}
+
+#stores ul>li {
+    left: 0;
+    padding-bottom: 1em;
     list-style: disc;
 }
-ul, li {
-    padding-left: 1em;
+
+.flex-content {
+    display: flex;
+    flex-flow: wrap;
+    flex-grow: 1;
+    background-image: url('../img/salmon.png');
+    background-position: center;
+    align-items:  stretch;
+    z-index: -1;
 }
