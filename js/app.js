@@ -30,8 +30,13 @@ const stores = {
     }]
 };
 
-const storeLocations = stores.keys;
-console.log(storeLocations);
+const storeLocations = Object.keys(stores);
+
+const divElem = document.getElementById('stores');
+const tbl = document.createElement('table');
+const tblHead = document.createElement('thead');
+const tblBody = document.createElement('tbody');
+const tblFoot = document.createElement('tfoot');
 
 function generateRandomInRange(lower, upper) {
     let range = upper - lower;
@@ -48,69 +53,88 @@ function Store(location, minCust, maxCust, avgSales) {
 }
 
 Store.prototype.generateSalesData = function () {
-    let arr = [];
-    for (let i = 0; i < openHours.length; i++) {
-        arr.push(this.avgSales * generateRandomInRange(this.minCust, this.maxCust));
-    }
+    let arr = Array(openHours.length).fill(1);
+    arr = arr.map(e => { return Math.floor(generateRandomInRange(this.minCust, this.maxCust) * this.avgSales) })
+    arr.push(arr.reduce((e1, e2) => { return e1 + e2 }));
     return arr;
 }
 
 Store.prototype.render = function () {
+    let arr = [this.location].concat(this.salesData);
+    const tblRow = document.createElement('tr');
 
-    createHeader();
+    tblRow.className = 'data-table';
+    tblRow.id = 'data-table-row';
 
-    const tableRow = document.createElement('tr');
-    tableRow.className = 'data-row';
-    tableRow.id = storeLocations.indexOf(this.location);
-
-    const tableCell = document.createElement('td');
-
-    tableRow.appendChild(tableCell);
-    tableCell.textContent = this.location;
-
-    this.salesData.map(function (elm, index) { tableRow.appendChild(tableCell); tableCell.textContent = Number(elm); tableCell.className = 'data-cell'; tableCell.id = index });
-
+    arr.map(function (e, i) { const tblCell = document.createElement('td'); tblCell.className = 'data-table'; tblCell.id = 'data-table-cell'; tblCell.textContent = e; tblRow.appendChild(tblCell); });
+    tblBody.appendChild(tblRow);
 }
 
 function createHeader() {
-    const divElem = document.getElementById('stores');
-    const table = document.createElement('table');
-    divElem.appendChild(table);
-    const tableBody = document.createElement('tbody');
-    table.appendChild(tableBody);
 
-    const tableHeader = document.createElement('tr');
-    tableHeader.className = 'header-row';
-    table.appendChild(tableHeader);
+    const tblHeader = document.createElement('tr');
 
-    openHours.map(elm => elm.replace(`${/[APap][mM]$/}`, `:00${/[APap][mM]$/}`)).push('Daily Location Total').map(function (elm) { const headerCell = document.createElement('th'); tableHeader.appendChild(headerCell); headerCell.textContent = elm; headerCell.className = 'header-cell' });
+    tblHeader.className = 'data-table';
+    tblHeader.id = 'data-table-header';
+
+    let headers = openHours.map(e => `${e.match(/\d+(\.\d+)?/g)}:00 ${e.match(/\D+(\.\D+)?/g)}`);
+    headers.push('Daily Location Total');
+    headers.unshift('Location');
+
+    headers.map(function (e, i) { const tblHeaderCell = document.createElement('th'); tblHeaderCell.className = 'data-table'; tblHeaderCell.id = 'data-header-cell'; tblHeaderCell.textContent = e; tblHeader.appendChild(tblHeaderCell); });
+    // console.log(tblHeader)
+
+    return tblHeader;
 }
 
 function createFooter() {
-    const tableFooter = document.createElement('tr');
-    tableFooter.className = 'footer-row';
-    table.appendChild(tableFooter);
-    const footerCell = documents.createElement('td');
-    let tableData = [];
+    const tblFooter = document.createElement('tr');
+    tblFooter.className = 'data-table';
 
-    document.getElementsByClassName('data-row').map(tableData.push(document.getElementsByClassName('data-row').forEach(element => { isNaN(element) ? '' : Number(element) })));
-    console.log(tableData);
+    let table = Array.prototype.map.call(document.querySelectorAll('table tr'), function(tr) {
+        return Array.prototype.map.call(tr.querySelectorAll('td'), function(td) { return td.textContent;}
+        );
+    });
+    
+    table = table.slice(1,table.length).map(row => row.slice(1,row.length)).map(row => row.map(cell => Number(cell)));
+    table = table[0].map((_, colIndex) => table.map(row => row[colIndex]));
 
-    let rowTotals = tableData.forEach(row => row.reduce(elm, elm1 => isNaN(elm) && isNaN(elm1) ? '' : elm + elm1));
-    rowTotals.forEach(elm, index => tableRow.getElementById(index).appendChild(tableCell).textContent = elm);
+    let footer = ['Hourly Totals'].concat(table.map(elm => elm.reduce((col1, col2) => {return col1 + col2})));
+    
+    footer.map(e => {const tblFooterCell = document.createElement('td'); tblFooterCell.className = 'data-table'; tblFooterCell.id = 'data-footer-cell'; tblFooterCell.textContent = e; tblFooter.appendChild(tblFooterCell); });
 
-    let colTotals = tabledata[0].length.forEach(i => tabledata[i].reduce(function (val1, val2) { return val1 + val2 }));
-    colTotals.forEach(function (elm, index) { tableFooter.appendChild(footerCell); footerCell.textContent = elm; footerCell.id = index; });
+    return tblFooter;
+    
 }
 
-const seattle = new Store('Seattle', 23, 65, 6.3);
-const tokyo = new Store('Tokyo', 3, 24, 1.2);
-const dubai = new Store('Dubai', 11, 38, 3.7);
-const paris = new Store('Paris', 20, 38, 2.3);
-const lima = new Store('Lima', 2, 2.3, 4.6);
 
-seattle.prototype.render();
-tokyo.prototype.render();
-dubai.prototype.render();
-paris.prototype.render();
-lima.prototype.render();
+function createBody() {
+    storeLocations.forEach(store => { eval(`const ${store} = new Store('${store}', stores.${store}[0].minCust, stores.${store}[0].maxCust, stores.${store}[0].avgSales);`); });
+}
+
+function createTable() {
+
+    tbl.className = 'data-table';
+    tbl.id = 'data-table';
+
+    tblHead.className = 'data-table';
+    tblHead.id = 'data-table-head';
+
+    tblBody.className = 'data-table';
+    tblBody.id = 'data-table-body';
+
+    tblFoot.classList = 'data-table';
+    tblFoot.id = 'data-table-foot';
+
+    divElem.appendChild(tbl);
+
+    tblHead.appendChild(createHeader());
+    tbl.appendChild(tblHead);
+
+    createBody();
+    tbl.appendChild(tblBody);
+
+    tblFoot.appendChild(createFooter());
+    tbl.appendChild(tblFoot);
+    console.log(tbl);
+}
