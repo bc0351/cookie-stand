@@ -4,24 +4,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <title>Salmon Cookies</title>
 </head>
 
-<body onLoad="createTable()">
-    <div class="flex-container">
-        <div class="flex-navbar">
-            <p class="flex-navbar-item">Cookie Stand</p>
-        </div>
-        <div  class="flex-item">
-            <div class="flex-content">
-                <div id="stores">
-                </div>
+<body class="web-bg" onLoad="createTable()" id="sales">
+    <div class="flex-container" id="site-wrapper">
+        <header>
+            <div class="flex-item" id="logo">
+                <p class="flex-item highlight-text" >Pat's Disgusting Fish Cookies</p>
             </div>
+            <ul class="flex-container row" id="nav-items">
+                <li class="flex-container" id="home">
+                    <a href="./index.html"><img src="../../assets/img/home.png" /></a>
+                </li>
+                <li class="flex-container" id="login">
+                    <a href="./sales.html"><img src="../../assets/img/padlock.png" /></a>
+                </li>
+                <li class="flex-item" id="nav-item-1">
+                    <a href="#about-us"><img src="../../assets/img/about-us.png" /></a>
+                </li>
+                <li class="flex-item" id="nav-item-2">
+                    <a href="#contact"><img src="../../assets/img/email.png" /></a>
+                </li>
+                <li class="flex-item" id="nav-item-3">
+                    <a href="#hours"><img src="../../assets/img/clock.png" /></a>
+                </li>
+                <li class="flex-item" id="nav-item-4">
+                    <a href="#shop"><img src="../../assets/img/shopping-cart.png" /></a>
+                </li>
+            </ul>
+        </header>
+        <div class="flex-container row" id="content-wrapper">
+            <nav class="flex-item"></nav>
+            <article class="flex-container" id="article-wrapper">
+                <section class="flex-item" id="section-data-from"></section>
+                <section class="flex-item" id="data-table"></section>
+            </article>
+            <aside class="flex-item"></aside>
         </div>
+        <footer class="flex-container">
+            <section class="flex-item"></section>
+        </footer>
     </div>
-    <script src="js/app.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,219 @@
+html, body {
+    font-family: 'Open Sans', sans-serif;
+    width: 100vw;
+    height: 100vh;
+    font-size: 20px;
+  }
+  
+  .flex-container {
+    display: flex;
+  }
+  
+  .flex-item {
+    flex: 1;
+    order: 1;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+  }
+  
+  header.flex-container,
+  footer.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    height: 75px;
+    width: calc((100vw - 1000px)/2);
+  }
+  
+  div.flex-container {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  div.flex-container>article {
+    align-self: center;
+  }
+  
+  div.flex-container>nav,
+  div.flex-container>aside {
+    flex-grow: 1;
+    width: calc((100vw - 1000px)/2);
+  }
+  
+  article {
+    width: 1000px;
+    flex-direction: column;
+    align-content: flex-start;
+    align-items: center;
+  }
+  
+  article>section.flex-container {
+    flex-direction: row;
+  }
+  
+  
+  #row {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  #col {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  header, footer {
+    width: 100vw;
+  }
+  
+  header.flex-container,
+  footer.flex-container {
+    max-width: 1000px;
+    align-self: center;
+  }
+  
+  #data-table.flex-container {
+    width: 100%;
+    min-height: 100vh;
+    background: #c850c0;
+    background: -webkit-linear-gradient(45deg, #4158d0, #c850c0);
+    background: -o-linear-gradient(45deg, #4158d0, #c850c0);
+    background: -moz-linear-gradient(45deg, #4158d0, #c850c0);
+    background: linear-gradient(45deg, #4158d0, #c850c0);
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    padding: 33px 30px
+  }
+  
+  .data-table {
+    width: 1000px;
+  }
+    table {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 11px;
+      border-spacing: 1;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow-y: scroll;
+    }
+  
+    table thead tr {
+      height: 50px;
+      background: #36304a
+    }
+  
+    table tbody tr {
+      height: 40px
+    }
+  
+    table tr {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: stretch;
+      align-content: center;
+    }
+  
+    tbody tr:nth-child(even) {
+      background-color: #f5f5f5
+    }
+  
+    table tbody tr:nth-last-child() {
+      border: 0
+    }
+  
+    table th,
+    table td {
+      flex: 1;
+      flex-grow: 1;
+      text-align: center;
+      flex-basis: stretch;
+      padding-top: 5px;
+    }
+  
+    table::-webkit-scrollbar,
+    table>*::-webkit-scrollbar {
+      display: none;
+    }
+  
+    #body-table {
+      color: gray;
+      line-height: 1.2;
+      font-weight: unset
+    }
+  
+    #row-header>* {
+      font-size: 11px;
+      color: #fff;
+      line-height: 1.2;
+      font-weight: unset
+    }
+  
+    #body-table {
+      overflow-y: scroll;
+    }
+  
+    #row-header {
+      align-items: center;
+      font-weight: 700;
+    }
+  
+    #row-body:hover,
+    #row-footer:hover {
+      color: #555;
+      background-color: #e1ebfc;
+      cursor: pointer
+    }
+  
+    #row-footer {
+      background-color: #c8c8c8;
+      color: rgb(73, 73, 73);
+      font-weight: 700;
+      position: sticky;
+    }
+  
+    #cell-header-loc,
+    #cell-body-loc,
+    #cell-footer-loc {
+      text-align: left;
+      padding-left: 5px;
+      flex-grow: 1.5;
+    }
+  
+    #cell-header-total,
+    #cell-body-total,
+    #cell-footer-total {
+      text-align: right;
+      padding-right: 5px;
+      flex-grow: 1.5;
+      font-weight: 700;
+    }
+  
+    #cell-header-total {
+      text-align: center;
+    }
+  
+    #cell-body-total,
+    #cell-footer-total {
+      text-align: right;
+      padding-right: 5px;
+      flex-grow: 1.5;
+      color: rgb(73, 73, 73);
+    }
+  

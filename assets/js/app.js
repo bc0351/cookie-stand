@@ -32,11 +32,12 @@ const stores = {
 
 const storeLocations = Object.keys(stores);
 
-const divElem = document.getElementById('stores');
+const sectionElemForm = document.getElementById('section-data-form');
+
+const sectionElem = document.getElementById('data-table');
 const tbl = document.createElement('table');
 const tblHead = document.createElement('thead');
 const tblBody = document.createElement('tbody');
-const tblFoot = document.createElement('tfoot');
 
 function generateRandomInRange(lower, upper) {
     let range = upper - lower;
@@ -48,7 +49,8 @@ function Store(location, minCust, maxCust, avgSales) {
     this.minCust = minCust;
     this.maxCust = maxCust;
     this.avgSales = avgSales;
-    this.salesData = this.generateSalesData();
+    this.salesData = [];
+    this.generateSalesData();
     this.render();
 }
 
@@ -56,7 +58,7 @@ Store.prototype.generateSalesData = function () {
     let arr = Array(openHours.length).fill(1);
     arr = arr.map(e => { return Math.floor(generateRandomInRange(this.minCust, this.maxCust) * this.avgSales) })
     arr.push(arr.reduce((e1, e2) => { return e1 + e2 }));
-    return arr;
+    this.salesData = arr;
 }
 
 Store.prototype.render = function () {
@@ -64,10 +66,16 @@ Store.prototype.render = function () {
     const tblRow = document.createElement('tr');
 
     tblRow.className = 'data-table';
-    tblRow.id = 'data-table-row';
+    tblRow.id = 'row-body';
 
-    arr.map(function (e, i) { const tblCell = document.createElement('td'); tblCell.className = 'data-table'; tblCell.id = 'data-table-cell'; tblCell.textContent = e; tblRow.appendChild(tblCell); });
+    arr.map(function (e, i) { const tblCell = document.createElement('td'); tblCell.className = 'data-table'; (i === 0) ? tblCell.id = 'cell-body-loc' : (i === arr.length - 1) ? tblCell.id = 'cell-body-total' : tblCell.id = 'cell-body-time'; tblCell.textContent = e; tblRow.appendChild(tblCell); });
     tblBody.appendChild(tblRow);
+}
+
+function loadForm() {
+    const formElem = document.createElement('form');
+    sectionElemForm.appendChild(formElem);
+    
 }
 
 function createHeader() {
@@ -75,14 +83,13 @@ function createHeader() {
     const tblHeader = document.createElement('tr');
 
     tblHeader.className = 'data-table';
-    tblHeader.id = 'data-table-header';
+    tblHeader.id = 'row-header';
 
     let headers = openHours.map(e => `${e.match(/\d+(\.\d+)?/g)}:00 ${e.match(/\D+(\.\D+)?/g)}`);
     headers.push('Daily Location Total');
     headers.unshift('Location');
 
-    headers.map(function (e, i) { const tblHeaderCell = document.createElement('th'); tblHeaderCell.className = 'data-table'; tblHeaderCell.id = 'data-header-cell'; tblHeaderCell.textContent = e; tblHeader.appendChild(tblHeaderCell); });
-    // console.log(tblHeader)
+    headers.map(function (e, i) { const tblHeaderCell = document.createElement('th'); tblHeaderCell.className = 'data-table'; (i === 0) ? tblHeaderCell.id = 'cell-header-loc' : (i === headers.length - 1) ? tblHeaderCell.id = 'cell-header-total' : tblHeaderCell.id = 'cell-header-time'; tblHeaderCell.textContent = e; tblHeader.appendChild(tblHeaderCell); });
 
     return tblHeader;
 }
@@ -90,6 +97,7 @@ function createHeader() {
 function createFooter() {
     const tblFooter = document.createElement('tr');
     tblFooter.className = 'data-table';
+    tblFooter.id ="row-footer";
 
     let table = Array.prototype.map.call(document.querySelectorAll('table tr'), function(tr) {
         return Array.prototype.map.call(tr.querySelectorAll('td'), function(td) { return td.textContent;}
@@ -101,7 +109,7 @@ function createFooter() {
 
     let footer = ['Hourly Totals'].concat(table.map(elm => elm.reduce((col1, col2) => {return col1 + col2})));
     
-    footer.map(e => {const tblFooterCell = document.createElement('td'); tblFooterCell.className = 'data-table'; tblFooterCell.id = 'data-footer-cell'; tblFooterCell.textContent = e; tblFooter.appendChild(tblFooterCell); });
+    footer.map(function(e,i) {const tblFooterCell = document.createElement('td'); tblFooterCell.className = 'data-table'; (i === 0) ? tblFooterCell.id = 'cell-footer-loc' : (i === footer.length - 1) ? tblFooterCell.id = 'cell-footer-total' : tblFooterCell.id = 'cell-footer-time'; tblFooterCell.textContent = e; tblFooter.appendChild(tblFooterCell); });
 
     return tblFooter;
     
@@ -109,24 +117,22 @@ function createFooter() {
 
 
 function createBody() {
-    storeLocations.forEach(store => { eval(`const ${store} = new Store('${store}', stores.${store}[0].minCust, stores.${store}[0].maxCust, stores.${store}[0].avgSales);`); });
+    storeLocations.forEach(store => { eval(`const ${store} = new Store('${store}', stores.${store}[0].minCust, stores.${store}[0].maxCust, stores.${store}[0].avgSales).generateSalesData();`);});
+    // storeLocations.forEach(store => { eval(`Store.${store}.generateSalesData();`); });
 }
 
 function createTable() {
 
     tbl.className = 'data-table';
-    tbl.id = 'data-table';
+    tbl.id = 'table';
 
     tblHead.className = 'data-table';
-    tblHead.id = 'data-table-head';
+    tblHead.id = 'head-table';
 
     tblBody.className = 'data-table';
-    tblBody.id = 'data-table-body';
+    tblBody.id = 'body-table';
 
-    tblFoot.classList = 'data-table';
-    tblFoot.id = 'data-table-foot';
-
-    divElem.appendChild(tbl);
+    sectionElem.appendChild(tbl);
 
     tblHead.appendChild(createHeader());
     tbl.appendChild(tblHead);
@@ -134,7 +140,6 @@ function createTable() {
     createBody();
     tbl.appendChild(tblBody);
 
-    tblFoot.appendChild(createFooter());
-    tbl.appendChild(tblFoot);
+    tblBody.appendChild(createFooter());
     console.log(tbl);
 }
