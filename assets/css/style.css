@@ -248,10 +248,20 @@ img {
   filter: drop-shadow(3px 3px 5px gray);
 }
 
-#article-row-1 {
+#article-row-1, 
+#article-row-2,
+#article-row-3,
+#article-row-4 {
   height: 400px;
   width: 100%;
   align-self: center;
+  justify-content: space-between;
+}
+
+#cell-2-1,
+#cell-2-2 {
+  width: calc(100%/2);
+  margin:3em;
 }
 
 #article-row-1>img {
@@ -508,4 +518,12 @@ table>*::-webkit-scrollbar {
 
 #cf img.top:hover {
   opacity: 0;
+}
+
+
+legend {
+  font-weight: 700;
+}
+#addStoreForm>* {
+  font-size: 12px;
 }
