@@ -20,29 +20,44 @@
             </div>
             <ul class="flex-container row" id="nav-items">
                 <li class="flex-container" id="home">
-                    <a href="./index.html"><img src="../../assets/img/home.png" /></a>
+                    <a href="./index.html"><img src="assets/img/home.png" /></a>
                 </li>
                 <li class="flex-container" id="login">
-                    <a href="./sales.html"><img src="../../assets/img/padlock.png" /></a>
+                    <a href="./sales.html"><img src="assets/img/padlock.png" /></a>
                 </li>
                 <li class="flex-item" id="nav-item-1">
-                    <a href="#about-us"><img src="../../assets/img/about-us.png" /></a>
+                    <a href="#about-us"><img src="assets/img/about-us.png" /></a>
                 </li>
                 <li class="flex-item" id="nav-item-2">
-                    <a href="#contact"><img src="../../assets/img/email.png" /></a>
+                    <a href="#contact"><img src="assets/img/email.png" /></a>
                 </li>
                 <li class="flex-item" id="nav-item-3">
-                    <a href="#hours"><img src="../../assets/img/clock.png" /></a>
+                    <a href="#hours"><img src="assets/img/clock.png" /></a>
                 </li>
                 <li class="flex-item" id="nav-item-4">
-                    <a href="#shop"><img src="../../assets/img/shopping-cart.png" /></a>
+                    <a href="#shop"><img src="assets/img/shopping-cart.png" /></a>
                 </li>
             </ul>
         </header>
         <div class="flex-container row" id="content-wrapper">
             <nav class="flex-item"></nav>
             <article class="flex-container" id="article-wrapper">
-                <section class="flex-item" id="section-data-from"></section>
+                <section class="flex-item" id="section-data-form">
+                    <form id="addStoreForm">
+                        <fieldset>
+                            <legend>Store Information</legend>
+                            <label>Location: </label>
+                            <input name="location" type="text"/>
+                            <label>Minimum Customers: </label>
+                            <input name="minCust" type="number"/>
+                            <label>Maximum Customers: </label>
+                            <input name="maxCust" type="number"/>
+                            <label>Average Sales: </label>
+                            <input name="avgSales" type="number"/>
+                        </fieldset>
+                        <button type="submit">Submit</button>
+                    </form>
+                </section>
                 <section class="flex-item" id="data-table"></section>
             </article>
             <aside class="flex-item"></aside>

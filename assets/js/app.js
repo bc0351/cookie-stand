@@ -2,7 +2,7 @@
 
 const openHours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 
-const stores = {
+let stores = {
     Seattle: [{
         minCust: 23,
         maxCust: 65,
@@ -30,6 +30,8 @@ const stores = {
     }]
 };
 
+let storesArray = [];
+
 const storeLocations = Object.keys(stores);
 
 const sectionElemForm = document.getElementById('section-data-form');
@@ -45,13 +47,13 @@ function generateRandomInRange(lower, upper) {
 };
 
 function Store(location, minCust, maxCust, avgSales) {
-    this.location = location;
-    this.minCust = minCust;
-    this.maxCust = maxCust;
-    this.avgSales = avgSales;
-    this.salesData = [];
-    this.generateSalesData();
-    this.render();
+    this.location = location,
+    this.minCust = minCust,
+    this.maxCust = maxCust,
+    this.avgSales = avgSales,
+    this.salesData = [],
+    this.generateSalesData(),
+    this.render()
 }
 
 Store.prototype.generateSalesData = function () {
@@ -59,6 +61,7 @@ Store.prototype.generateSalesData = function () {
     arr = arr.map(e => { return Math.floor(generateRandomInRange(this.minCust, this.maxCust) * this.avgSales) })
     arr.push(arr.reduce((e1, e2) => { return e1 + e2 }));
     this.salesData = arr;
+    storesArray.push(this)
 }
 
 Store.prototype.render = function () {
@@ -70,12 +73,6 @@ Store.prototype.render = function () {
 
     arr.map(function (e, i) { const tblCell = document.createElement('td'); tblCell.className = 'data-table'; (i === 0) ? tblCell.id = 'cell-body-loc' : (i === arr.length - 1) ? tblCell.id = 'cell-body-total' : tblCell.id = 'cell-body-time'; tblCell.textContent = e; tblRow.appendChild(tblCell); });
     tblBody.appendChild(tblRow);
-}
-
-function loadForm() {
-    const formElem = document.createElement('form');
-    sectionElemForm.appendChild(formElem);
-    
 }
 
 function createHeader() {
@@ -115,14 +112,12 @@ function createFooter() {
     
 }
 
-
 function createBody() {
     storeLocations.forEach(store => { eval(`const ${store} = new Store('${store}', stores.${store}[0].minCust, stores.${store}[0].maxCust, stores.${store}[0].avgSales).generateSalesData();`);});
-    // storeLocations.forEach(store => { eval(`Store.${store}.generateSalesData();`); });
 }
 
 function createTable() {
-
+    console.log(storesArray);
     tbl.className = 'data-table';
     tbl.id = 'table';
 
@@ -143,3 +138,18 @@ function createTable() {
     tblBody.appendChild(createFooter());
     console.log(tbl);
 }
+
+const storeForm = document.getElementById('addStoreForm');
+
+storeForm.addEventListener('submit', 
+    function(event) {
+        event.preventDefault();
+        let location = event.target.location.value;
+        let minCust = event.target.minCust.value;
+        let maxCust = event.target.maxCust.value;
+        let avgSales = event.target.avgSales.value;
+
+        window[`${location}`] = new Store(location, minCust, maxCust, avgSales);
+        window[`${location}`].generateSalesData();
+        window[`${location}`].render();
+});
